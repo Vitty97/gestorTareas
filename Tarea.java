@@ -5,22 +5,20 @@
  * @author (your name)
  * @version (a version number or a date)
  */
+import java.time.LocalDate;
 public class Tarea
 {
     private String descripcion;
     private boolean estaCompletada;
     private int prioridad;
-    private int dia;
-    private int mes;
-    private int ano;
+    private LocalDate fechaVencimiento;
+    private boolean fechaAsignada = false;
     
     public Tarea(String descripcion){
         this.descripcion = descripcion;
         estaCompletada = false;
         prioridad = 5;
-        dia = 0;
-        mes = 0;
-        ano = 0;
+        fechaVencimiento = null;
     }
     
     public String getDescripcion(){
@@ -45,24 +43,26 @@ public class Tarea
     
     public String getFecha(){
         String fecha = "";
-        String nuevoDia = "" + dia;
-        String nuevoMes = "" + mes;
-        if(dia != 0){
-
-            if(dia < 10){
-                nuevoDia = "0" + dia;       
+        String nuevoDia = "" + fechaVencimiento.getDayOfMonth();
+        String nuevoMes = "" + fechaVencimiento.getMonthValue();
+        if(fechaAsignada){
+            if(fechaVencimiento.getDayOfMonth() < 10){
+                nuevoDia = "0" + fechaVencimiento.getDayOfMonth();       
             }
-            if(mes < 10){
-                nuevoMes = "0" + mes;
+            if(fechaVencimiento.getMonthValue() < 10){
+                nuevoMes = "0" + fechaVencimiento.getMonthValue();
             }
-            fecha = " - " + nuevoDia + "/" + nuevoMes + "/" + ano;
+            fecha = nuevoDia + "/" + nuevoMes + "/" + fechaVencimiento.getYear();
         }        
         return fecha;
     }
     
     public void setCambiarFecha(int dia, int mes, int ano){
-        this.dia = dia;
-        this.mes = mes;
-        this.ano = ano;
+        fechaVencimiento =  fechaVencimiento.of(ano, mes, dia);
+        fechaAsignada = true;
     } 
+    
+    public boolean fechaAsignada(){
+        return fechaAsignada;
+    }
 }

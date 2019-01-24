@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class GestorTareas{
 
@@ -520,7 +521,13 @@ public class GestorTareas{
         String listaTareasConFecha = "";
         int contador = 1;
         for(Tarea tareaActual : tareas){
-            listaTareasConFecha += contador + ". " + tareaActual.getDescripcion() + tareaActual.getFecha() + "\n";
+            
+            listaTareasConFecha += contador + ". " + tareaActual.getDescripcion();
+            if(tareaActual.fechaAsignada()){
+                listaTareasConFecha += " - ";
+                listaTareasConFecha += tareaActual.getFecha();
+            }
+            listaTareasConFecha += "\n";
             contador++;
         }
         return listaTareasConFecha;
